@@ -1,5 +1,6 @@
 package edu.icet.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -45,5 +46,23 @@ public class DashBoadControler implements Initializable {
 
         MonthliyIncomChart.getData().add(series1);
 
+    }
+
+    public void btn_addon_action(ActionEvent actionEvent) {
+    }
+
+    public void btnSupler_onAction(ActionEvent actionEvent) {
+    }
+
+    public void btn_salse_onAction(ActionEvent actionEvent) {
+    }
+
+    public void btn_Expier_On_action(ActionEvent actionEvent) {
+    }
+
+    public void btn_Stok_OnActiopn(ActionEvent actionEvent) {
+    }
+
+    public void btn_salseReport_onAction(ActionEvent actionEvent) {
     }
 }

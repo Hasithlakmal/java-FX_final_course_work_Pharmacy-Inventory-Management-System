@@ -1,11 +1,14 @@
- #dashBoad {
+#dashBoad {
         -fx-background-color: #D9C0A8; /* Light blue */
     }
 #inpanel {
         -fx-background-color: #F5EFEF; /* Light blue */
     }
 
-    #panelAlert{
-    -fx-background-color:#4B3543
+    #table {
+            -fx-background-color: #faf7f7; /* Light blue */
+        }
 
-    }
+
+
+

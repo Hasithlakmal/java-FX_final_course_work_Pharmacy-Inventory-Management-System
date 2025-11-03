@@ -1,0 +1,23 @@
+ #dashBoad {
+        -fx-background-color: #D9C0A8; /* Light blue */
+    }
+#inpanel {
+        -fx-background-color: #F5EFEF; /* Light blue */
+    }
+
+    #panelAlert{
+    -fx-background-color:#4B3543
+
+    }
+
+    #alertInerPanel_01{
+
+    -fx-background-color:#AD9F9F
+
+    }
+
+ #alertInerPanel_02{
+
+    -fx-background-color:#AD9F9F
+
+    }
