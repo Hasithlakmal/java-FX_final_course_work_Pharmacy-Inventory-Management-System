@@ -9,15 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Add_medicines_Controler implements Initializable {
-
-
+public class dsh01controler implements Initializable {
     ObservableList<ok> observableList = FXCollections.observableArrayList();
-
 
     @FXML
     private JFXButton btnSupler;
@@ -40,7 +38,6 @@ public class Add_medicines_Controler implements Initializable {
     @FXML
     private TableColumn<?, ?> columBarcode;
 
-
     @FXML
     private TableColumn<?, ?> columName;
 
@@ -62,39 +59,38 @@ public class Add_medicines_Controler implements Initializable {
 
     }
 
+    @FXML
+    void btn_addon_action(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_salseReport_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_salse_onAction(ActionEvent event) {
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
 
 
-    public void btn_addon_action(ActionEvent actionEvent) {
-    }
+        columBarcode.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columName.setCellValueFactory(new PropertyValueFactory<>("number"));
 
-    public void btn_salseReport_onAction(ActionEvent actionEvent) {
-    }
 
-    public void btn_salse_onAction(ActionEvent actionEvent) {
-    }
+        for (int i = 0; i < 10; i++) {
 
-    public void btnAddonAction(ActionEvent actionEvent) {
-        System.out.println("Add");
-    }
+            ok o = new ok("hasith", i);
 
-    public void btnUpdateonAction(ActionEvent actionEvent) {
 
-        System.out.println("update");
+            observableList.add(o);
 
-    }
-
-    public void btnDelteonAction(ActionEvent actionEvent) {
-
-        System.out.println("delete");
-    }
-
-    public void btnCleronActtion(ActionEvent actionEvent) {
-
-        System.out.println("cler");
+            tableAddMedi.setItems(observableList);
+        }
     }
 }
-

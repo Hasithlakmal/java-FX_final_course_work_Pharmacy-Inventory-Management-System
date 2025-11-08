@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="dashBoad" prefHeight="750.0" prefWidth="1410.0" stylesheets="@Css/Add_medicines.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.Add_medicines_Controler">
+<AnchorPane id="dashBoad" prefHeight="750.0" prefWidth="1410.0" stylesheets="@Css/SuplerManegment.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.SuplyeManagement_Controler">
     <children>
-        <AnchorPane id="inpanel" layoutX="243.0" layoutY="126.0" mouseTransparent="true" prefHeight="555.0" prefWidth="1127.0" stylesheets="@Css/Add_medicines.css">
+        <AnchorPane id="inpanel" layoutX="243.0" layoutY="126.0" mouseTransparent="true" prefHeight="555.0" prefWidth="1127.0" stylesheets="@Css/SuplerManegment.css">
             <children>
 
 
@@ -21,10 +21,10 @@
         </AnchorPane>
         <ImageView fitHeight="134.0" fitWidth="130.0" layoutX="40.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../Image/addmedicin%20logo.png" />
+                <Image url="@../Image/suplyerIcon.png" />
             </image>
         </ImageView>
-        <Label layoutX="322.0" layoutY="16.0" prefHeight="103.0" prefWidth="780.0" text="MEDICINE MANAGEMENT">
+        <Label layoutX="322.0" layoutY="16.0" prefHeight="103.0" prefWidth="780.0" text="SUPPLIER MANAGEMENT">
             <font>
                 <Font size="60.0" />
             </font>
@@ -61,48 +61,42 @@
         </JFXButton>
         <AnchorPane id="inpanel" layoutX="246.0" layoutY="126.0" prefHeight="550.0" prefWidth="232.0">
             <children>
-                <JFXTextField layoutX="96.0" layoutY="93.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textBarcode" layoutX="96.0" layoutY="93.0" prefHeight="26.0" prefWidth="175.0" />
                 <Label layoutX="5.0" layoutY="90.0" prefHeight="18.0" prefWidth="128.0" text="Barcode">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField layoutX="96.0" layoutY="144.0" prefHeight="26.0" prefWidth="175.0" />
-                <Label layoutX="5.0" layoutY="142.0" prefHeight="18.0" prefWidth="128.0" text="Name">
+                <JFXTextField fx:id="textSupplier" layoutX="96.0" layoutY="144.0" prefHeight="26.0" prefWidth="175.0" />
+                <Label layoutX="5.0" layoutY="142.0" prefHeight="18.0" prefWidth="128.0" text="Supplier">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField layoutX="96.0" layoutY="197.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textBrand" layoutX="96.0" layoutY="197.0" prefHeight="26.0" prefWidth="175.0" />
                 <Label layoutX="5.0" layoutY="194.0" prefHeight="18.0" prefWidth="128.0" text="Brand">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField layoutX="96.0" layoutY="248.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textQuantity" layoutX="96.0" layoutY="248.0" prefHeight="26.0" prefWidth="175.0" />
                 <Label layoutX="5.0" layoutY="245.0" prefHeight="18.0" prefWidth="128.0" text="Quantity">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField layoutX="97.0" layoutY="298.0" prefHeight="26.0" prefWidth="175.0" />
-                <Label layoutX="5.0" layoutY="295.0" prefHeight="18.0" prefWidth="128.0" text="Price">
+                <JFXTextField fx:id="textTel" layoutX="97.0" layoutY="298.0" prefHeight="26.0" prefWidth="175.0" />
+                <Label layoutX="5.0" layoutY="295.0" prefHeight="18.0" prefWidth="128.0" text="Tel  No :">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <Label layoutX="5.0" layoutY="404.0" prefHeight="18.0" prefWidth="128.0" text="Expiry Date">
+                <Label layoutX="5.0" layoutY="363.0" prefHeight="18.0" prefWidth="128.0" text="Expiry Date">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <DatePicker layoutX="135.0" layoutY="405.0" prefHeight="26.0" prefWidth="144.0" />
-                <JFXTextField layoutX="97.0" layoutY="346.0" prefHeight="26.0" prefWidth="175.0" />
-                <Label layoutX="5.0" layoutY="343.0" prefHeight="18.0" prefWidth="128.0" text="Price">
-                    <font>
-                        <Font size="22.0" />
-                    </font>
-                </Label>
+                <DatePicker fx:id="DatePiker" layoutX="135.0" layoutY="364.0" prefHeight="26.0" prefWidth="144.0" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="527.0" layoutY="192.0" prefHeight="445.0" prefWidth="794.0">
@@ -112,13 +106,13 @@
                         <TableColumn fx:id="columBarcode" prefWidth="134.39984130859375" text="Barcode" />
                         <TableColumn fx:id="columName" prefWidth="122.40008544921875" text="Name" />
                         <TableColumn fx:id="columBrand" prefWidth="120.7999267578125" text="Brand" />
-                        <TableColumn fx:id="columName11" prefWidth="125.3333740234375" text="Expiry Date" />
+                        <TableColumn fx:id="columSupplier" prefWidth="125.3333740234375" text="Supplier" />
                         <TableColumn fx:id="columQuantity" prefWidth="93.59991455078125" text="Quantity" />
-                        <TableColumn fx:id="columPrice" prefWidth="95.2000732421875" text="Price" />
-                        <TableColumn fx:id="columSelingPrice" prefWidth="102.933349609375" text="Seling Price" />
+                        <TableColumn fx:id="columExpiryDate" prefWidth="95.2000732421875" text="Expiry Date" />
+                        <TableColumn fx:id="columTel_No" prefWidth="102.933349609375" text="Tel  No :" />
                     </columns>
                 </TableView>
-            <JFXButton fx:id="btnAdd" layoutX="110.0" layoutY="377.0" onAction="#btnAddonAction" prefHeight="40.0" prefWidth="128.0" text="Add item">
+            <JFXButton fx:id="btnAdd" layoutX="110.0" layoutY="377.0" onAction="#btnAddonAction" prefHeight="40.0" prefWidth="128.0" text="Add suppler">
                <font>
                   <Font size="18.0" />
                </font>
@@ -128,7 +122,7 @@
                   <Font size="18.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnDelte" layoutX="434.0" layoutY="374.0" onAction="#btnDelteonAction" prefHeight="40.0" prefWidth="128.0" text="Delete Item">
+            <JFXButton fx:id="btnDelte" layoutX="434.0" layoutY="374.0" onAction="#btnDelteonAction" prefHeight="40.0" prefWidth="144.0" text="Delete suppler">
                <font>
                   <Font size="18.0" />
                </font>
