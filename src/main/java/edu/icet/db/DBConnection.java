@@ -10,7 +10,7 @@ public class DBConnection {
     private final Connection connection;
 
     public DBConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pamacy","root","1234");
+        connection = DriverManager.getConnection("db url");
     }
 
     public  Connection getConnection(){
