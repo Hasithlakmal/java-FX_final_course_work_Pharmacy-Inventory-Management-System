@@ -19,7 +19,7 @@ public class Start extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/SalseAndBeling.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/Sales_Report.fxml"))));
 
         stage.show();
 

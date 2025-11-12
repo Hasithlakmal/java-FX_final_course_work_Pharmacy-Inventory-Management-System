@@ -1,7 +1,7 @@
 package edu.icet.controller;
 
 import com.jfoenix.controls.JFXButton;
-import edu.icet.dto.ok;
+import edu.icet.model.dto.ok;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
