@@ -10,7 +10,7 @@ public class DBConnection {
     private final Connection connection;
 
     public DBConnection() throws SQLException {
-        connection = DriverManager.getConnection("enter your  mysqul conection  her ");
+
     }
 
     public  Connection getConnection(){
