@@ -1,12 +1,17 @@
 package edu.icet.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import edu.icet.model.dto.AddItem;
 import edu.icet.model.dto.ok;
+import edu.icet.services.AdditemServices;
+import edu.icet.services.impl.AdditemServicesImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -18,6 +23,7 @@ public class Add_medicines_Controler implements Initializable {
 
     ObservableList<ok> observableList = FXCollections.observableArrayList();
 
+    AdditemServices additemServices= new AdditemServicesImpl();
 
     @FXML
     private JFXButton btnSupler;
@@ -46,6 +52,33 @@ public class Add_medicines_Controler implements Initializable {
 
     @FXML
     private TableView<ok> tableAddMedi;
+
+
+    @FXML
+    private JFXTextField taxtBrand;
+
+    @FXML
+    private JFXTextField textBarcode;
+
+
+    @FXML
+    private DatePicker expierDate;
+
+
+    @FXML
+    private JFXTextField textName;
+
+    @FXML
+    private JFXTextField textPice;
+
+    @FXML
+    private JFXTextField textQyt;
+
+
+    @FXML
+    private JFXTextField textFeildSalingPrices;
+
+
 
     @FXML
     void btnSupler_onAction(ActionEvent event) {
@@ -78,7 +111,29 @@ public class Add_medicines_Controler implements Initializable {
     }
 
     public void btnAddonAction(ActionEvent actionEvent) {
-        System.out.println("Add");
+
+
+        int additem = additemServices.additem(new AddItem(
+
+                textBarcode.getText(),
+                textName.getText(),
+                taxtBrand.getText(),
+                expierDate.getValue(),
+                Integer.parseInt(textQyt.getText()),
+                Double.parseDouble(textPice.getText()),
+                Double.parseDouble(textFeildSalingPrices.getText())
+
+
+        ));
+
+
+        if(additem>0){
+
+            clerText();
+
+        }
+
+
     }
 
     public void btnUpdateonAction(ActionEvent actionEvent) {
@@ -96,5 +151,22 @@ public class Add_medicines_Controler implements Initializable {
 
         System.out.println("cler");
     }
+
+
+    public void clerText() {
+
+        textBarcode.setText(null);
+        textName.setText(null);
+        taxtBrand.setText(null);
+        expierDate.setValue(null);
+        textQyt.setText(null);
+        textPice.setText(null);
+        textFeildSalingPrices.setText(null);
+
+
+
+    }
+
+
 }
 
