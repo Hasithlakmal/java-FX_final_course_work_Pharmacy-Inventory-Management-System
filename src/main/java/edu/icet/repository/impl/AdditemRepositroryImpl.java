@@ -41,19 +41,19 @@ public class AdditemRepositroryImpl implements AdditemRepositrory {
 
     }
 
-    public Boolean deleteItem(String bacode, String name) throws SQLException {
+    public int deleteItem(String bacode, String name) throws SQLException {
 
         PreparedStatement preparedStatement = getconnection().prepareStatement("delete  from additem where barcode = ? or name = ? ");
 
         preparedStatement.setObject(1, bacode);
         preparedStatement.setObject(2, name);
 
-        return preparedStatement.execute();
+        return preparedStatement.executeUpdate();
 
 
     }
 
-    public  boolean updateItem(AddItem item) throws SQLException {
+    public int updateItem(AddItem item) throws SQLException {
 
         PreparedStatement preparedStatement = getconnection().prepareStatement(" update  additem additem  set  barcode= ? , name= ? , brand= ? ,ExpierDate= ? ,qyt= ? ,price = ? , salingPrice = ?  where barcode= ? or name = ? ");
 
@@ -67,7 +67,7 @@ public class AdditemRepositroryImpl implements AdditemRepositrory {
         preparedStatement.setObject(8,item.getBarcode());
         preparedStatement.setObject(9,item.getName());
 
-        return preparedStatement.execute();
+        return preparedStatement.executeUpdate();
 
 
 

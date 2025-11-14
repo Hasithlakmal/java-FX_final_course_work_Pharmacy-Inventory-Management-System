@@ -3,25 +3,21 @@ package edu.icet.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.icet.model.dto.AddItem;
-import edu.icet.model.dto.ok;
 import edu.icet.services.AdditemServices;
 import edu.icet.services.impl.AdditemServicesImpl;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Add_medicines_Controler implements Initializable {
 
-
-    ObservableList<ok> observableList = FXCollections.observableArrayList();
 
     AdditemServices additemServices= new AdditemServicesImpl();
 
@@ -46,12 +42,26 @@ public class Add_medicines_Controler implements Initializable {
     @FXML
     private TableColumn<?, ?> columBarcode;
 
+    @FXML
+    private TableColumn<?, ?> columBrand;
+
+    @FXML
+    private TableColumn<?, ?> columExpiryDate;
 
     @FXML
     private TableColumn<?, ?> columName;
 
     @FXML
-    private TableView<ok> tableAddMedi;
+    private TableColumn<?, ?> columPrice;
+
+    @FXML
+    private TableColumn<?, ?> columQuantity;
+
+    @FXML
+    private TableColumn<?, ?> columSelingPrice;
+
+    @FXML
+    private TableView<AddItem> tableAddMedi;
 
 
     @FXML
@@ -95,12 +105,6 @@ public class Add_medicines_Controler implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
-
     public void btn_addon_action(ActionEvent actionEvent) {
     }
 
@@ -129,6 +133,7 @@ public class Add_medicines_Controler implements Initializable {
 
         if(additem>0){
 
+            loadItamTabale();
             clerText();
 
         }
@@ -138,18 +143,49 @@ public class Add_medicines_Controler implements Initializable {
 
     public void btnUpdateonAction(ActionEvent actionEvent) {
 
-        System.out.println("update");
+        int b = additemServices.updateItem(new AddItem(
+
+                textBarcode.getText(),
+                textName.getText(),
+                taxtBrand.getText(),
+                expierDate.getValue(),
+                Integer.parseInt(textQyt.getText()),
+                Double.parseDouble(textPice.getText()),
+                Double.parseDouble(textFeildSalingPrices.getText())
+
+
+        ));
+        if (b > 0) {
+            loadItamTabale();
+        }
 
     }
 
     public void btnDelteonAction(ActionEvent actionEvent) {
 
-        System.out.println("delete");
+        int i = additemServices.deleteItem(textBarcode.getText(), textName.getText());
+
+        if (i>0){
+
+            clerText();
+            loadItamTabale();
+
+        }
+
     }
 
     public void btnCleronActtion(ActionEvent actionEvent) {
 
-        System.out.println("cler");
+
+        textBarcode.setText(null);
+        textName.setText(null);
+        taxtBrand.setText(null);
+        expierDate.setValue(null);
+        textQyt.setText(null);
+        textPice.setText(null);
+        textFeildSalingPrices.setText(null);
+
+
     }
 
 
@@ -166,6 +202,60 @@ public class Add_medicines_Controler implements Initializable {
 
 
     }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        columBarcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+        columName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        columExpiryDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        columPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        columSelingPrice.setCellValueFactory(new PropertyValueFactory<>("sealing"));
+
+//        tblViewItem.getSelectionModel().selectedItemProperty().addListener((((observableValue, oldValue, newValue) -> {
+//            if(null!=newValue){
+//                setSelectedItem((Item) newValue);
+//            }
+//        })));
+
+
+        tableAddMedi.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+
+            if (newValue!=null){
+
+                setSelectedRow(newValue);
+
+            }
+
+        });
+
+        loadItamTabale();
+
+
+    }
+
+    private void setSelectedRow(AddItem newValue) {
+
+        textBarcode.setText(newValue.getBarcode());
+        textName.setText(newValue.getName());
+        taxtBrand.setText(newValue.getBrand());
+        expierDate.setValue(newValue.getDate());
+        textQyt.setText(String.valueOf(newValue.getQuantity()));
+        textPice.setText(String.valueOf(newValue.getPrice()));
+        textFeildSalingPrices.setText(String.valueOf(newValue.getSealing()));
+
+    }
+
+    public void  loadItamTabale(){
+
+        tableAddMedi.setItems(additemServices.getallItam());
+
+    }
+
 
 
 }
