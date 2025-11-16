@@ -12,6 +12,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -116,29 +117,80 @@ public class Add_medicines_Controler implements Initializable {
 
     public void btnAddonAction(ActionEvent actionEvent) {
 
+        int qyt= Integer.parseInt(textQyt.getText());
 
-        int additem = additemServices.additem(new AddItem(
+        AddItem item = new AddItem(
 
                 textBarcode.getText(),
                 textName.getText(),
                 taxtBrand.getText(),
                 expierDate.getValue(),
-                Integer.parseInt(textQyt.getText()),
+                qyt,
                 Double.parseDouble(textPice.getText()),
                 Double.parseDouble(textFeildSalingPrices.getText())
 
 
-        ));
+        );
+
+        if (0 < AllRedeyHaveIt(item)) {
+
+            qyt = AllRedeyHaveIt(item);
+
+            AddItem item1 = new AddItem(
+
+                    textBarcode.getText(),
+                    textName.getText(),
+                    taxtBrand.getText(),
+                    expierDate.getValue(),
+                    qyt,
+                    Double.parseDouble(textPice.getText()),
+                    Double.parseDouble(textFeildSalingPrices.getText())
 
 
-        if(additem>0){
+            );
 
-            loadItamTabale();
-            clerText();
+            int i = additemServices.updateItem(item1);
+
+            if (i > 0) {
+
+                loadItamTabale();
+                clerText();
+
+            }
+
+
+        }else {
+
+
+            int additem = additemServices.additem(item);
+
+
+            if(additem>0){
+
+                loadItamTabale();
+                clerText();
+
+            }
+
 
         }
 
 
+    }
+
+    private int AllRedeyHaveIt(AddItem item) {
+
+        for (AddItem allItam : additemServices.getallItam()) {
+
+            if (allItam.getBarcode().equals(item.getBarcode()) &&  allItam.getName().equals(item.getName()) && allItam.getBrand().equals(item.getBrand())){
+
+
+                return allItam.getQuantity()+item.getQuantity();
+
+            }
+
+        }
+        return 0;
     }
 
     public void btnUpdateonAction(ActionEvent actionEvent) {
@@ -215,12 +267,6 @@ public class Add_medicines_Controler implements Initializable {
         columPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         columSelingPrice.setCellValueFactory(new PropertyValueFactory<>("sealing"));
 
-//        tblViewItem.getSelectionModel().selectedItemProperty().addListener((((observableValue, oldValue, newValue) -> {
-//            if(null!=newValue){
-//                setSelectedItem((Item) newValue);
-//            }
-//        })));
-
 
         tableAddMedi.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -253,6 +299,31 @@ public class Add_medicines_Controler implements Initializable {
     public void  loadItamTabale(){
 
         tableAddMedi.setItems(additemServices.getallItam());
+
+    }
+
+
+
+    @FXML
+    void BarcodeSerchOnAction(KeyEvent event) {
+
+        for (AddItem Item : additemServices.getallItam()) {
+
+            if (Item.getBarcode().equals(textBarcode.getText())){
+
+                textName.setText(Item.getName());
+                taxtBrand.setText(Item.getBrand());
+                expierDate.setValue(Item.getDate());
+                textQyt.setText(String.valueOf(Item.getQuantity()));
+                textPice.setText(String.valueOf(Item.getPrice()));
+                textFeildSalingPrices.setText(String.valueOf(Item.getSealing()));
+
+            }
+
+
+
+        }
+
 
     }
 
