@@ -111,6 +111,14 @@ public class SuplyeManagement_Controler implements Initializable {
     @FXML
     void btnCleronActtion(ActionEvent event) {
 
+
+        textBrand.setText(null);
+        DatePiker.setValue(null);
+        textQuantity.setText(null);
+        textSupplier.setText(null);
+        textTel.setText(null);
+
+
     }
 
     @FXML
@@ -176,7 +184,13 @@ public class SuplyeManagement_Controler implements Initializable {
 
     public void  loadItamTabale(){
 
-        table.setItems(suplyeManagementServices.getallItam());
+        ObservableList<Join_suplyerAndAdditem> combinedList = FXCollections.observableArrayList();
+
+        combinedList.addAll(suplyeManagementServices.getallItam().getList1());
+        combinedList.addAll(suplyeManagementServices.getallItam().getList2());
+
+        table.setItems(combinedList);
+
 
     }
 
@@ -184,9 +198,11 @@ public class SuplyeManagement_Controler implements Initializable {
     @FXML
     void BarcodeSerchOnAction(KeyEvent event) {
 
+        btnCleronActtion(null);
+
         String text = textBarcode.getText();
 
-        for ( Join_suplyerAndAdditem  joinSuplyerAndAdditem  : suplyeManagementServices.getallItam()) {
+        for ( Join_suplyerAndAdditem  joinSuplyerAndAdditem  : suplyeManagementServices.getallItam().getList1()) {
 
             if (joinSuplyerAndAdditem.getBarcode().equals(text)){
 
@@ -210,6 +226,7 @@ public class SuplyeManagement_Controler implements Initializable {
                         textBrand.setText(Item.getBrand());
                         DatePiker.setValue(Item.getDate());
                         textQuantity.setText(String.valueOf(Item.getQuantity()));
+
 
 
                     }

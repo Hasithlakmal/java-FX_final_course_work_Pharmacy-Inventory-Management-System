@@ -1,7 +1,9 @@
 package edu.icet.services.impl;
 
+import edu.icet.model.dto.AddItem;
 import edu.icet.model.dto.Join_suplyerAndAdditem;
 import edu.icet.model.dto.Suply;
+import edu.icet.model.dto.TwoOBsavelLists;
 import edu.icet.repository.SuplyeManagementRepositrory;
 import edu.icet.repository.impl.SuplyeManagementRepositroryImpl;
 import edu.icet.services.AdditemServices;
@@ -30,10 +32,11 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
         }    }
 
     @Override
-    public ObservableList<Join_suplyerAndAdditem> getallItam() {
+    public TwoOBsavelLists<Join_suplyerAndAdditem> getallItam() {
 
 
         ObservableList<Join_suplyerAndAdditem> observableList=FXCollections.observableArrayList();
+        ObservableList<Join_suplyerAndAdditem> observableListNounReg=FXCollections.observableArrayList();
 
         ResultSet resultSet = null;
         try {
@@ -66,7 +69,35 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
                 ));
 
 
+                for (Join_suplyerAndAdditem rgeItem : observableList) {
 
+                    for (AddItem item : additemServices.getallItam()) {
+
+                        if (!rgeItem.getBarcode().equals(item.getBarcode())){
+
+                            observableListNounReg.add(new Join_suplyerAndAdditem(
+
+                                    item.getBarcode(),
+                                    item.getName(),
+                                    item.getBrand(),
+                                    item.getDate(),
+                                    item.getQuantity(),
+                                    item.getPrice(),
+                                   item.getSealing(),
+
+                                   "Not Yet Add",
+                                    "Not Yet Add"
+
+
+
+
+                            ));
+
+                        }
+
+                    }
+
+                }
 
 
             }
@@ -79,7 +110,7 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
         }
 
 
-        return observableList;
+        return new TwoOBsavelLists<>(observableList,observableListNounReg);
     }
 
     @Override
