@@ -71,6 +71,8 @@ public class AdditemServicesImpl implements AdditemServices {
 
     @Override
     public int updateItem(AddItem item) {
+
+
         try {
             return additemRepositrory.updateItem(item);
         } catch (SQLException e) {
@@ -107,4 +109,16 @@ public class AdditemServicesImpl implements AdditemServices {
 
 
     }
+
+    @Override
+    public ResultSet getSelectedItam(String bacode) {
+
+        try {
+            return additemRepositrory.getSelectedItam(bacode);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
