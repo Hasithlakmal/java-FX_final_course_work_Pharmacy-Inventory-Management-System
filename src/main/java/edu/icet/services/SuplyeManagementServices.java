@@ -1,5 +1,6 @@
 package edu.icet.services;
 
+import edu.icet.model.dto.Join_suplyerAndAdditem;
 import edu.icet.model.dto.Suply;
 import javafx.collections.ObservableList;
 
@@ -7,7 +8,7 @@ public interface SuplyeManagementServices {
 
     public int additem(Suply item);
 
-    public ObservableList<Suply> getallItam() ;
+    public ObservableList<Join_suplyerAndAdditem> getallItam() ;
 
     public int updateItem(Suply item) ;
 
