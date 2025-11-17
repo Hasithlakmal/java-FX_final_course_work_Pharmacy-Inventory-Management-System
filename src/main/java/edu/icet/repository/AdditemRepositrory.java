@@ -15,4 +15,5 @@ public interface AdditemRepositrory {
 
     public int deleteItem(String bacode, String name) throws SQLException;
 
+    ResultSet getSelectedItam(String bacode) throws SQLException;
 }
