@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -127,19 +126,6 @@ public class SuplyeManagement_Controler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        columBarcode.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columName.setCellValueFactory(new PropertyValueFactory<>("number"));
-
-
-        for (int i = 0; i < 100; i++) {
-
-            ok o = new ok("hasith", i);
-
-
-            observableList.add(o);
-
-            tableAddMedi.setItems(observableList);
-        }
 
 
     }
