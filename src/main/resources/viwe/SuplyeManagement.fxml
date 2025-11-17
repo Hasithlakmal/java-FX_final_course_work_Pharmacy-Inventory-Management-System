@@ -61,31 +61,46 @@
         </JFXButton>
         <AnchorPane id="inpanel" layoutX="246.0" layoutY="126.0" prefHeight="550.0" prefWidth="232.0">
             <children>
-                <JFXTextField fx:id="textBarcode" layoutX="96.0" layoutY="93.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textBarcode" layoutX="96.0" layoutY="93.0" onKeyTyped="#BarcodeSerchOnAction" prefHeight="26.0" prefWidth="175.0">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXTextField>
                 <Label layoutX="5.0" layoutY="90.0" prefHeight="18.0" prefWidth="128.0" text="Barcode">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField fx:id="textSupplier" layoutX="96.0" layoutY="144.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textSupplier" layoutX="96.0" layoutY="144.0" prefHeight="26.0" prefWidth="175.0">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXTextField>
                 <Label layoutX="5.0" layoutY="142.0" prefHeight="18.0" prefWidth="128.0" text="Supplier">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField fx:id="textBrand" layoutX="96.0" layoutY="197.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textBrand" layoutX="96.0" layoutY="197.0" prefHeight="26.0" prefWidth="175.0">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXTextField>
                 <Label layoutX="5.0" layoutY="194.0" prefHeight="18.0" prefWidth="128.0" text="Brand">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField fx:id="textQuantity" layoutX="96.0" layoutY="248.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textQuantity" layoutX="96.0" layoutY="248.0" prefHeight="26.0" prefWidth="175.0">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXTextField>
                 <Label layoutX="5.0" layoutY="245.0" prefHeight="18.0" prefWidth="128.0" text="Quantity">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField fx:id="textTel" layoutX="97.0" layoutY="298.0" prefHeight="26.0" prefWidth="175.0" />
+                <JFXTextField fx:id="textTel" layoutX="97.0" layoutY="298.0" prefHeight="26.0" prefWidth="175.0">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXTextField>
                 <Label layoutX="5.0" layoutY="295.0" prefHeight="18.0" prefWidth="128.0" text="Tel  No :">
                     <font>
                         <Font size="22.0" />
@@ -101,7 +116,7 @@
         </AnchorPane>
         <AnchorPane layoutX="527.0" layoutY="192.0" prefHeight="445.0" prefWidth="794.0">
             <children>
-                <TableView id="tb" fx:id="tableAddMedi" layoutX="6.0" layoutY="14.0" prefHeight="278.0" prefWidth="785.0" stylesheets="@Css/Add_medicines.css">
+                <TableView id="tb" fx:id="table" layoutX="6.0" layoutY="14.0" prefHeight="278.0" prefWidth="785.0" stylesheets="@Css/Add_medicines.css">
                     <columns>
                         <TableColumn fx:id="columBarcode" prefWidth="134.39984130859375" text="Barcode" />
                         <TableColumn fx:id="columName" prefWidth="122.40008544921875" text="Name" />
