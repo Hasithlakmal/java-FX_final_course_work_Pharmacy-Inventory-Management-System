@@ -1,18 +1,22 @@
 package edu.icet.services.impl;
 
+import edu.icet.model.dto.Join_suplyerAndAdditem;
 import edu.icet.model.dto.Suply;
 import edu.icet.repository.SuplyeManagementRepositrory;
 import edu.icet.repository.impl.SuplyeManagementRepositroryImpl;
+import edu.icet.services.AdditemServices;
 import edu.icet.services.SuplyeManagementServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
 
     SuplyeManagementRepositrory suplyeManagementRepositrory=new SuplyeManagementRepositroryImpl();
+    AdditemServices additemServices=new AdditemServicesImpl();
 
 
     @Override
@@ -26,24 +30,42 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
         }    }
 
     @Override
-    public ObservableList<Suply> getallItam() {
-        ObservableList <Suply> observableList= FXCollections.observableArrayList();
+    public ObservableList<Join_suplyerAndAdditem> getallItam() {
+
+
+        ObservableList<Join_suplyerAndAdditem> observableList=FXCollections.observableArrayList();
 
         ResultSet resultSet = null;
         try {
             resultSet = suplyeManagementRepositrory.getallItam();
 
 
+
             while (resultSet.next()){
 
-                observableList.add(new Suply(
+                ResultSet barcode = additemServices.getSelectedItam(resultSet.getString("barcode"));
+
+                barcode.next();
+
+                observableList.add(new Join_suplyerAndAdditem(
+
+                        barcode.getString("barcode"),
+                        barcode.getString("name"),
+                        barcode.getString("brand"),
+                        LocalDate.parse(barcode.getString("ExpierDate")),
+                        Integer.parseInt(barcode.getString("qyt")),
+                        Double.parseDouble(barcode.getString("price")),
+                        Double.parseDouble(barcode.getString("salingPrice")),
 
                         resultSet.getNString("supplier"),
-                        resultSet.getNString("Tel_No"),
-                        resultSet.getNString("barcode")
+                        resultSet.getString("Tel_No")
+
+
 
 
                 ));
+
+
 
 
 
@@ -55,6 +77,7 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
 
         return observableList;
     }
