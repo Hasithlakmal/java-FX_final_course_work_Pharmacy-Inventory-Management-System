@@ -1,4 +1,6 @@
 package edu.icet.services.impl;
 
-public class SuplyeManagementServicesImpl {
+import edu.icet.services.SuplyeManagementServices;
+
+public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
 }
