@@ -15,8 +15,6 @@ public class AdditemRepositroryImpl implements AdditemRepositrory {
     @Override
     public int addItem(AddItem item) throws SQLException {
 
-        System.out.println(item);
-
         Connection connection = DBConnection.getDBConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("insert into additem  values (?,?,?,?,?,?,?)");
 
@@ -55,7 +53,7 @@ public class AdditemRepositroryImpl implements AdditemRepositrory {
 
     public int updateItem(AddItem item) throws SQLException {
 
-        PreparedStatement preparedStatement = getconnection().prepareStatement(" update  additem additem  set  barcode= ? , name= ? , brand= ? ,ExpierDate= ? ,qyt= ? ,price = ? , salingPrice = ?  where barcode= ? or name = ? ");
+        PreparedStatement preparedStatement = getconnection().prepareStatement(" update  additem   set  barcode= ? , name= ? , brand= ? ,ExpierDate= ? ,qyt= ? ,price = ? , salingPrice = ?  where barcode= ? or name = ? ");
 
         preparedStatement.setObject(1,item.getBarcode());
         preparedStatement.setObject(2,item.getName());
@@ -79,6 +77,18 @@ public class AdditemRepositroryImpl implements AdditemRepositrory {
         return DBConnection.getDBConnection().getConnection();
         
         
+    }
+
+    @Override
+    public ResultSet getSelectedItam(String bacode) throws SQLException {
+
+        PreparedStatement preparedStatement = getconnection().prepareStatement(" select  * from additem  where barcode= ?");
+
+        preparedStatement.setObject(1,bacode);
+
+        return preparedStatement.executeQuery();
+
+
     }
 
 
