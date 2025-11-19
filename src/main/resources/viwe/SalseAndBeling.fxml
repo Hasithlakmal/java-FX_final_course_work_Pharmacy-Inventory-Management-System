@@ -111,7 +111,7 @@
             <children>
                 <TableView id="tb" fx:id="tableAddMedi" layoutX="6.0" layoutY="14.0" prefHeight="278.0" prefWidth="785.0" stylesheets="@Css/Add_medicines.css">
                     <columns>
-                        <TableColumn fx:id="columBarcode" prefWidth="174.40008544921875" text="Bil   No " />
+                        <TableColumn fx:id="columBarcode" prefWidth="174.40008544921875" text="Bacode " />
                         <TableColumn fx:id="columName" prefWidth="135.7333984375" text="Name" />
                         <TableColumn fx:id="columBrand" prefWidth="185.5999755859375" text="Brand" />
                         <TableColumn fx:id="columSupplier" prefWidth="96.800048828125" text="Expiry Date" />
