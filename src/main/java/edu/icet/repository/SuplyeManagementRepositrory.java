@@ -13,6 +13,6 @@ public interface SuplyeManagementRepositrory {
 
     public int updateItem(Suply item) throws SQLException;
 
-    public int deleteItem(String bacode, String name) throws SQLException;
+    public int deleteItem(String bacode ) throws SQLException;
 
 }

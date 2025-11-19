@@ -3,7 +3,6 @@ package edu.icet.services.impl;
 import edu.icet.model.dto.AddItem;
 import edu.icet.model.dto.Join_suplyerAndAdditem;
 import edu.icet.model.dto.Suply;
-import edu.icet.model.dto.TwoOBsavelLists;
 import edu.icet.repository.SuplyeManagementRepositrory;
 import edu.icet.repository.impl.SuplyeManagementRepositroryImpl;
 import edu.icet.services.AdditemServices;
@@ -17,8 +16,8 @@ import java.time.LocalDate;
 
 public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
 
-    SuplyeManagementRepositrory suplyeManagementRepositrory=new SuplyeManagementRepositroryImpl();
-    AdditemServices additemServices=new AdditemServicesImpl();
+    SuplyeManagementRepositrory suplyeManagementRepositrory = new SuplyeManagementRepositroryImpl();
+    AdditemServices additemServices = new AdditemServicesImpl();
 
 
     @Override
@@ -29,22 +28,21 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }    }
+        }
+    }
 
     @Override
-    public TwoOBsavelLists<Join_suplyerAndAdditem> getallItam() {
+    public ObservableList<Join_suplyerAndAdditem> regesterSuplayes() {
 
 
-        ObservableList<Join_suplyerAndAdditem> observableList=FXCollections.observableArrayList();
-        ObservableList<Join_suplyerAndAdditem> observableListNounReg=FXCollections.observableArrayList();
+        ObservableList<Join_suplyerAndAdditem> observableList = FXCollections.observableArrayList();
 
         ResultSet resultSet = null;
         try {
             resultSet = suplyeManagementRepositrory.getallItam();
 
 
-
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
                 ResultSet barcode = additemServices.getSelectedItam(resultSet.getString("barcode"));
 
@@ -64,45 +62,9 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
                         resultSet.getString("Tel_No")
 
 
-
-
                 ));
 
-
-                for (Join_suplyerAndAdditem rgeItem : observableList) {
-
-                    for (AddItem item : additemServices.getallItam()) {
-
-                        if (!rgeItem.getBarcode().equals(item.getBarcode())){
-
-                            observableListNounReg.add(new Join_suplyerAndAdditem(
-
-                                    item.getBarcode(),
-                                    item.getName(),
-                                    item.getBrand(),
-                                    item.getDate(),
-                                    item.getQuantity(),
-                                    item.getPrice(),
-                                   item.getSealing(),
-
-                                   "Not Yet Add",
-                                    "Not Yet Add"
-
-
-
-
-                            ));
-
-                        }
-
-                    }
-
-                }
-
-
             }
-
-
 
 
         } catch (SQLException e) {
@@ -110,7 +72,7 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
         }
 
 
-        return new TwoOBsavelLists<>(observableList,observableListNounReg);
+        return observableList;
     }
 
     @Override
@@ -123,31 +85,87 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
     }
 
     @Override
-    public int deleteItem(String bacode, String name) {
+    public int deleteItem(String bacode) {
+        int i;
         try {
 
-            if (bacode == null) {
-
-                return suplyeManagementRepositrory.deleteItem(null, name);
-
-            } else if (name == null) {
-
-                return suplyeManagementRepositrory.deleteItem(bacode, null);
-
-            } else if (bacode != null && name != null) {
-
-                return suplyeManagementRepositrory.deleteItem(bacode, null);
-
-            } else {
-
-                return 0;
-
-            }
+            i = suplyeManagementRepositrory.deleteItem(bacode);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
 
+        return i;
+
     }
+
+    @Override
+    public ObservableList<Join_suplyerAndAdditem> getUnRegisterSuplers() {
+
+        // never don't this  ,one methode doing multiy task  becouse ad  some method not working example this methode
+        // if you  create this  method  in getallItam() method . it's not working , becouse as one time  tiger two
+        // method  from  repositrory  therefore  this method will not be woking  , i speend  to undurstand  this  40 hours
+
+
+        ObservableList<Join_suplyerAndAdditem> unRegisterSuplers = FXCollections.observableArrayList();
+        ObservableList<AddItem> items = additemServices.getallItam();
+        ObservableList<Join_suplyerAndAdditem> regsterItam = regesterSuplayes();
+
+
+        try {
+
+
+            for (int i = 0; i < regsterItam.size() + 1; i++) {
+
+                for (int j = 0; j < items.size() + 1; j++) {
+
+                    if (items.get(j).getBarcode().equals(regsterItam.get(i).getBarcode())) {
+
+                        items.remove(j);
+                        break;
+
+                    }
+
+
+                }
+
+            }
+
+
+        } catch (RuntimeException ex) {
+
+
+        }
+
+
+        for (AddItem item : items) {
+
+            unRegisterSuplers.add(new Join_suplyerAndAdditem(
+
+
+                    item.getBarcode(),
+                    item.getName(),
+                    item.getBrand(),
+                    item.getDate(),
+                    item.getQuantity(),
+                    item.getPrice(),
+                    item.getSealing(),
+
+                    "Not Registered",
+                    "Not Registered"
+
+
+            ));
+
+
+        }
+
+
+        return unRegisterSuplers;
+
+
+    }
+
+
 }

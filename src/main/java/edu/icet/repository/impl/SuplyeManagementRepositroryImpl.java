@@ -14,8 +14,9 @@ public class SuplyeManagementRepositroryImpl  implements SuplyeManagementReposit
 
     @Override
     public int addItem(Suply item) throws SQLException {
+
         Connection connection = DBConnection.getDBConnection().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into additem  values (?,?,?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into supplier  values (?,?,?)");
 
         preparedStatement.setObject(1, item.getSumlyer());
         preparedStatement.setObject(2, item.getTel_no());
@@ -37,6 +38,7 @@ public class SuplyeManagementRepositroryImpl  implements SuplyeManagementReposit
 
         preparedStatement.setObject(1,item.getSumlyer());
         preparedStatement.setObject(2,item.getTel_no());
+        preparedStatement.setObject(3,item.getBacode());
 
         return preparedStatement.executeUpdate();
 
@@ -45,11 +47,10 @@ public class SuplyeManagementRepositroryImpl  implements SuplyeManagementReposit
     }
 
     @Override
-    public int deleteItem(String bacode, String name) throws SQLException {
+    public int deleteItem(String bacode) throws SQLException {
         PreparedStatement preparedStatement = getconnection().prepareStatement("delete  from supplier where barcode = ? ");
 
         preparedStatement.setObject(1, bacode);
-        preparedStatement.setObject(2, name);
 
         return preparedStatement.executeUpdate();
     }

@@ -2,9 +2,8 @@ package edu.icet.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.icet.model.dto.AddItem;
 import edu.icet.model.dto.Join_suplyerAndAdditem;
-import edu.icet.model.dto.ok;
+import edu.icet.model.dto.Suply;
 import edu.icet.services.AdditemServices;
 import edu.icet.services.SuplyeManagementServices;
 import edu.icet.services.impl.AdditemServicesImpl;
@@ -29,7 +28,7 @@ public class SuplyeManagement_Controler implements Initializable {
 
     SuplyeManagementServices suplyeManagementServices=new SuplyeManagementServicesImpl();
     AdditemServices additemServices=new AdditemServicesImpl();
-    ObservableList<ok> observableList = FXCollections.observableArrayList();
+
 
     @FXML
     private JFXButton btnAdd;
@@ -106,12 +105,63 @@ public class SuplyeManagement_Controler implements Initializable {
     @FXML
     void btnAddonAction(ActionEvent event) {
 
+        ObservableList<Join_suplyerAndAdditem> regesterSuplayes = suplyeManagementServices.regesterSuplayes();
+
+        if (isEmptyObservelListCheker(regesterSuplayes)){
+
+            int additem = suplyeManagementServices.additem(new Suply(
+
+                    textSupplier.getText(),
+                    textTel.getText(),
+                    textBarcode.getText()
+            ));
+
+            if(additem>0){
+
+                loadItamTabale();
+                btnCleronActtion(null);
+
+
+            }
+
+        }else {
+
+            for (Join_suplyerAndAdditem regesterSuplyerss :regesterSuplayes) {
+
+                if (!regesterSuplyerss.getBarcode().equals(textBarcode.getText())){
+
+                    int additem = suplyeManagementServices.additem(new Suply(
+
+                            textSupplier.getText(),
+                            textTel.getText(),
+                            textBarcode.getText()
+                    ));
+
+                    if(additem>0){
+
+                        loadItamTabale();
+                        btnCleronActtion(null);
+
+
+                    }
+
+                }
+
+            }
+
+
+
+
+        }
+
+
     }
 
     @FXML
     void btnCleronActtion(ActionEvent event) {
 
 
+        textBarcode.setText(null);
         textBrand.setText(null);
         DatePiker.setValue(null);
         textQuantity.setText(null);
@@ -124,6 +174,17 @@ public class SuplyeManagement_Controler implements Initializable {
     @FXML
     void btnDelteonAction(ActionEvent event) {
 
+
+        int i = suplyeManagementServices.deleteItem(textBarcode.getText());
+
+        if (i>0){
+
+            btnCleronActtion(null);
+            loadItamTabale();
+
+        }
+
+
     }
 
     @FXML
@@ -133,6 +194,21 @@ public class SuplyeManagement_Controler implements Initializable {
 
     @FXML
     void btnUpdateonAction(ActionEvent event) {
+
+        int i = suplyeManagementServices.updateItem(new Suply(
+
+                textSupplier.getText(),
+                textTel.getText(),
+                textBarcode.getText()
+
+        ));
+
+        if (i>0){
+
+            btnCleronActtion(null);
+            loadItamTabale();
+
+        }
 
     }
 
@@ -148,6 +224,9 @@ public class SuplyeManagement_Controler implements Initializable {
 
     @FXML
     void btn_addon_action(ActionEvent event) {
+
+
+
 
     }
 
@@ -176,23 +255,55 @@ public class SuplyeManagement_Controler implements Initializable {
         columTel_No.setCellValueFactory(new PropertyValueFactory<>("tel_no"));
 
 
+        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+
+            if (newValue!=null){
+
+                setSelectedRow(newValue);
+
+            }
+
+        });
+
+
+
+
+
         loadItamTabale();
 
 
     }
 
+    private void setSelectedRow(Join_suplyerAndAdditem newValue) {
 
-    public void  loadItamTabale(){
+        textBarcode.setText(newValue.getBarcode());
+        textBrand.setText(newValue.getBrand());
+        DatePiker.setValue(newValue.getDate());
+        textQuantity.setText(String.valueOf(newValue.getQuantity()));
+        textSupplier.setText(newValue.getSumlyer());
+        textTel.setText(newValue.getTel_no());
+
+
+    }
+
+
+    public void loadItamTabale() {
 
         ObservableList<Join_suplyerAndAdditem> combinedList = FXCollections.observableArrayList();
 
-        combinedList.addAll(suplyeManagementServices.getallItam().getList1());
-        combinedList.addAll(suplyeManagementServices.getallItam().getList2());
+        combinedList.addAll(suplyeManagementServices.regesterSuplayes());
+        combinedList.addAll(suplyeManagementServices.getUnRegisterSuplers());
 
         table.setItems(combinedList);
 
 
     }
+
+    private boolean isEmptyObservelListCheker(ObservableList list) {
+        return list.size() == 0;
+    }
+
 
 
     @FXML
@@ -202,7 +313,7 @@ public class SuplyeManagement_Controler implements Initializable {
 
         String text = textBarcode.getText();
 
-        for ( Join_suplyerAndAdditem  joinSuplyerAndAdditem  : suplyeManagementServices.getallItam().getList1()) {
+        for ( Join_suplyerAndAdditem  joinSuplyerAndAdditem  : suplyeManagementServices.regesterSuplayes()) {
 
             if (joinSuplyerAndAdditem.getBarcode().equals(text)){
 
@@ -218,7 +329,7 @@ public class SuplyeManagement_Controler implements Initializable {
 
 
 
-                for (AddItem Item : additemServices.getallItam()) {
+                for (Join_suplyerAndAdditem Item : suplyeManagementServices.getUnRegisterSuplers()) {
 
                     if (Item.getBarcode().equals(text)){
 
@@ -226,6 +337,8 @@ public class SuplyeManagement_Controler implements Initializable {
                         textBrand.setText(Item.getBrand());
                         DatePiker.setValue(Item.getDate());
                         textQuantity.setText(String.valueOf(Item.getQuantity()));
+                        textSupplier.setText(null);
+                        textTel.setText(null);
 
 
 
@@ -244,5 +357,8 @@ public class SuplyeManagement_Controler implements Initializable {
 
 
     }
+
+
+
 
 }
