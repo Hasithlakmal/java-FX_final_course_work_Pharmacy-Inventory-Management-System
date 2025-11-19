@@ -2,15 +2,32 @@ package edu.icet.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import edu.icet.model.dto.AddItem;
+import edu.icet.model.dto.Billing_info;
+import edu.icet.services.AdditemServices;
+import edu.icet.services.impl.AdditemServicesImpl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
-public class SalseAndBeling_Controler {
+import javax.swing.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class SalseAndBeling_Controler implements Initializable {
+
+
+    private ObservableList<Billing_info> observableListBilng = FXCollections.observableArrayList();
+
+    private AdditemServices additemServices = new AdditemServicesImpl();
     @FXML
     private DatePicker DatePiker;
 
@@ -57,10 +74,10 @@ public class SalseAndBeling_Controler {
     private TableColumn<?, ?> columName;
 
     @FXML
-    private TableColumn<?, ?> columQuantity;
+    private TableColumn<?, ?> columPrice;
 
     @FXML
-    private TableColumn<?, ?> columSupplier;
+    private TableColumn<?, ?> columQuantity;
 
     @FXML
     private Label labelBilingNumber;
@@ -69,7 +86,7 @@ public class SalseAndBeling_Controler {
     private Label labelNetTotal;
 
     @FXML
-    private TableView<?> tableAddMedi;
+    private TableView<Billing_info> table;
 
     @FXML
     private JFXTextField textBarcode;
@@ -89,10 +106,105 @@ public class SalseAndBeling_Controler {
     @FXML
     void btnAddonAction(ActionEvent event) {
 
+        Billing_info billing_info;
+
+        if (textQuantity.getLength() != 0) {
+
+            int updatQyt = Integer.parseInt(textQuantity.getText());
+            //   double updatePrice = updatQyt * Double.parseDouble(txtPrice.getText());
+
+
+            Double AOneItemOfPrice = 0.0;
+
+            for (AddItem details : additemServices.getallItam()) {
+
+                if (details.getBarcode().equals(textBarcode.getText())) {
+
+
+                    AOneItemOfPrice = details.getPrice();
+                }
+
+            }
+
+            double updatePrice = updatQyt * AOneItemOfPrice;
+
+            for (Billing_info oldInfo : observableListBilng) {
+
+                if (oldInfo.getBarcode().equals(textBarcode.getText())) {
+
+
+                    updatQyt += oldInfo.getQuantity();
+                    //updatePrice = Double.parseDouble(txtPrice.getText()) * updatQyt;
+                    updatePrice = Double.parseDouble(String.valueOf(AOneItemOfPrice * updatQyt));
+                    billing_info = new Billing_info(
+
+
+                            textBarcode.getText(),
+                            textName.getText(),
+                            textBrand.getText(),
+                            DatePiker.getValue(),
+                            updatQyt,
+                            updatePrice
+
+
+                    );
+
+
+                    observableListBilng.remove(oldInfo);
+
+
+                    break;
+
+                }
+
+
+            }
+
+
+            billing_info = new Billing_info(
+
+
+                    textBarcode.getText(),
+                    textName.getText(),
+                    textBrand.getText(),
+                    DatePiker.getValue(),
+                    updatQyt,
+                    updatePrice
+
+
+            );
+            observableListBilng.add(billing_info);
+
+            loadItamTabale();
+
+            setTotal();
+
+            btnCleronActtion(null);
+
+
+            billing_info = null;
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Qyt Is Empty , Please Enter the Qyt   !!!!");
+
+        }
+
+
     }
+
 
     @FXML
     void btnCleronActtion(ActionEvent event) {
+
+
+        textBarcode.setText(null);
+        textName.setText(null);
+        textBrand.setText(null);
+        textQuantity.setText(null);
+        textPrice.setText(null);
+        DatePiker.setValue(null);
+
 
     }
 
@@ -135,5 +247,60 @@ public class SalseAndBeling_Controler {
     void btn_salse_onAction(ActionEvent event) {
 
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        columBarcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+        columName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        columExpiryDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        columPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
+    }
+
+    public void loadItamTabale() {
+
+        table.setItems(observableListBilng);
+
+    }
+
+    private void setTotal() {
+
+        double total = 0.00;
+
+        for (Billing_info billing_info : observableListBilng) {
+
+            total += billing_info.getPrice();
+
+        }
+
+        labelNetTotal.setText(String.valueOf(total));
+    }
+
+    @FXML
+    void BarcodeSerchOnAction(KeyEvent event) {
+
+        for (AddItem Item : additemServices.getallItam()) {
+
+            if (Item.getBarcode().equals(textBarcode.getText())) {
+
+                textName.setText(Item.getName());
+                textBrand.setText(Item.getBrand());
+                // textQuantity.setText(String.valueOf(Item.getQuantity()));
+                textPrice.setText(String.valueOf(Item.getPrice()));
+                DatePiker.setValue(Item.getDate());
+
+            }
+
+
+        }
+
+
+    }
+
 
 }
