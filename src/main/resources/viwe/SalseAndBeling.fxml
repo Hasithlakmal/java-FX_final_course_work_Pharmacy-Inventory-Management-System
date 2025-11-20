@@ -96,7 +96,7 @@
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <JFXTextField fx:id="textQuantity" layoutX="96.0" layoutY="248.0" prefHeight="26.0" prefWidth="175.0">
+                <JFXTextField fx:id="textQuantity" layoutX="96.0" layoutY="248.0" onKeyTyped="#QuntityOnAction" prefHeight="26.0" prefWidth="175.0">
                <font>
                   <Font size="16.0" />
                </font></JFXTextField>
