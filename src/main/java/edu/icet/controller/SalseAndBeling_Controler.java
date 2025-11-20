@@ -108,13 +108,16 @@ public class SalseAndBeling_Controler implements Initializable {
 
         Billing_info billing_info;
 
+
         if (textQuantity.getLength() != 0) {
 
+
+
             int updatQyt = Integer.parseInt(textQuantity.getText());
-            //   double updatePrice = updatQyt * Double.parseDouble(txtPrice.getText());
 
 
             Double AOneItemOfPrice = 0.0;
+
 
             for (AddItem details : additemServices.getallItam()) {
 
@@ -179,7 +182,12 @@ public class SalseAndBeling_Controler implements Initializable {
 
             setTotal();
 
-            btnCleronActtion(null);
+            textBarcode.setText(null);
+            textName.setText(null);
+            textBrand.setText(null);
+            textQuantity.setText(null);
+            textPrice.setText(null);
+            DatePiker.setValue(null);
 
 
             billing_info = null;
@@ -205,11 +213,44 @@ public class SalseAndBeling_Controler implements Initializable {
         textPrice.setText(null);
         DatePiker.setValue(null);
 
+        observableListBilng.clear();
+
+        setTotal();
+
 
     }
 
     @FXML
     void btnDelteonAction(ActionEvent event) {
+
+        String bacode  = textBarcode.getText();
+
+        boolean remove;
+
+        for (Billing_info billing_info : observableListBilng) {
+
+            if (billing_info.getBarcode().equals(bacode)){
+
+                 remove = observableListBilng.remove(billing_info);
+
+                break;
+
+            }
+
+        }
+
+        if (remove=true){
+
+            loadItamTabale();
+
+            textBarcode.setText(null);
+            textName.setText(null);
+            textBrand.setText(null);
+            textQuantity.setText(null);
+            textPrice.setText(null);
+            DatePiker.setValue(null);
+
+        }
 
     }
 
@@ -259,8 +300,61 @@ public class SalseAndBeling_Controler implements Initializable {
         columQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         columPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+
+            if (newValue!=null){
+
+                setSelectedRow(newValue);
+
+            }
+
+        });
+
+
 
     }
+
+    private void setSelectedRow(Billing_info newValue) {
+
+
+        textBarcode.setText(newValue.getBarcode());
+        textName.setText(newValue.getName());
+        textBrand.setText(newValue.getBrand());
+        textQuantity.setText(String.valueOf(newValue.getQuantity()));
+        textPrice.setText(String.valueOf(newValue.getPrice()));
+        DatePiker.setValue(newValue.getDate());
+
+
+
+    }
+
+
+
+    @FXML
+    void QuntityOnAction(KeyEvent event) {
+
+        Double AOneItemOfPrice = 0.0;
+
+
+        for (AddItem details : additemServices.getallItam()) {
+
+            if (details.getBarcode().equals(textBarcode.getText())) {
+
+
+                AOneItemOfPrice = details.getPrice();
+            }
+
+        }
+
+
+        int i = Integer.parseInt(textQuantity.getText());
+        double tot=i*AOneItemOfPrice;
+        textPrice.setText(String.valueOf(tot));
+
+    }
+
+
 
     public void loadItamTabale() {
 
@@ -290,9 +384,103 @@ public class SalseAndBeling_Controler implements Initializable {
 
                 textName.setText(Item.getName());
                 textBrand.setText(Item.getBrand());
-                // textQuantity.setText(String.valueOf(Item.getQuantity()));
+
                 textPrice.setText(String.valueOf(Item.getPrice()));
                 DatePiker.setValue(Item.getDate());
+
+
+                ///////////////////////////////////////////////  strat  Auto adding to table
+
+
+
+
+                Billing_info billing_info;
+
+                if (textQuantity.getLength() != 0) {
+
+                    int updatQyt = Integer.parseInt(textQuantity.getText());
+                    //   double updatePrice = updatQyt * Double.parseDouble(txtPrice.getText());
+
+
+                    Double AOneItemOfPrice = 0.0;
+
+                    for (AddItem details : additemServices.getallItam()) {
+
+                        if (details.getBarcode().equals(textBarcode.getText())) {
+
+
+                            AOneItemOfPrice = details.getPrice();
+                        }
+
+                    }
+
+                    double updatePrice = updatQyt * AOneItemOfPrice;
+
+                    for (Billing_info oldInfo : observableListBilng) {
+
+                        if (oldInfo.getBarcode().equals(textBarcode.getText())) {
+
+
+                            updatQyt += oldInfo.getQuantity();
+                            //updatePrice = Double.parseDouble(txtPrice.getText()) * updatQyt;
+                            updatePrice = Double.parseDouble(String.valueOf(AOneItemOfPrice * updatQyt));
+                            billing_info = new Billing_info(
+
+
+                                    textBarcode.getText(),
+                                    textName.getText(),
+                                    textBrand.getText(),
+                                    DatePiker.getValue(),
+                                    updatQyt,
+                                    updatePrice
+
+
+                            );
+
+
+                            observableListBilng.remove(oldInfo);
+
+
+                            break;
+
+                        }
+
+
+                    }
+
+
+                    billing_info = new Billing_info(
+
+
+                            textBarcode.getText(),
+                            textName.getText(),
+                            textBrand.getText(),
+                            DatePiker.getValue(),
+                            updatQyt,
+                            updatePrice
+
+
+                    );
+                    observableListBilng.add(billing_info);
+
+                    loadItamTabale();
+
+                    setTotal();
+
+                    textBarcode.setText(null);
+                    textName.setText(null);
+                    textBrand.setText(null);
+
+                    textPrice.setText(null);
+                    DatePiker.setValue(null);
+
+
+
+                    billing_info = null;
+
+                }
+
+
 
             }
 
