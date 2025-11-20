@@ -91,7 +91,18 @@ public class AdditemRepositroryImpl implements AdditemRepositrory {
 
     }
 
+    @Override
+    public boolean updateQuantityItam(String bacode, int quantity) throws SQLException {
 
+        PreparedStatement preparedStatement = getconnection().prepareStatement("update additem set qyt = qyt - ?  where barcode= ? ");
+
+        preparedStatement.setObject(1,quantity);
+        preparedStatement.setObject(2,bacode);
+
+        int i = preparedStatement.executeUpdate();
+
+        return  i==0 ? false : true;
+    }
 
 
 }

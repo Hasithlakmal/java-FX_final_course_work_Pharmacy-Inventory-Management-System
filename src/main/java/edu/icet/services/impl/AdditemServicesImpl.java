@@ -1,6 +1,7 @@
 package edu.icet.services.impl;
 
 import edu.icet.model.dto.AddItem;
+import edu.icet.model.dto.Billing_info;
 import edu.icet.repository.AdditemRepositrory;
 import edu.icet.repository.impl.AdditemRepositroryImpl;
 import edu.icet.services.AdditemServices;
@@ -118,6 +119,30 @@ public class AdditemServicesImpl implements AdditemServices {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    @Override
+    public boolean updateQuantityItam(ObservableList<Billing_info> billingInfos) {
+        boolean isQuntetyUpdate = false;
+
+        try {
+
+            for (Billing_info billingInfo : billingInfos) {
+
+                isQuntetyUpdate = additemRepositrory.updateQuantityItam(billingInfo.getBarcode(), billingInfo.getQuantity());
+
+                if (isQuntetyUpdate==false){
+
+                    break;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return isQuntetyUpdate;
 
     }
 

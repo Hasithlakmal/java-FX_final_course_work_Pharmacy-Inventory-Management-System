@@ -4,8 +4,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.icet.model.dto.AddItem;
 import edu.icet.model.dto.Billing_info;
+import edu.icet.model.dto.Order;
 import edu.icet.services.AdditemServices;
+import edu.icet.services.Print_Bill_Services;
+import edu.icet.services.SalseAndBelingServicers;
 import edu.icet.services.impl.AdditemServicesImpl;
+import edu.icet.services.impl.Print_Bill_ServicesImpl;
+import edu.icet.services.impl.SalseAndBelingServicersImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +25,8 @@ import javafx.scene.input.KeyEvent;
 
 import javax.swing.*;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SalseAndBeling_Controler implements Initializable {
@@ -28,6 +35,10 @@ public class SalseAndBeling_Controler implements Initializable {
     private ObservableList<Billing_info> observableListBilng = FXCollections.observableArrayList();
 
     private AdditemServices additemServices = new AdditemServicesImpl();
+    private SalseAndBelingServicers salseAndBelingServicers=new SalseAndBelingServicersImpl();
+    private Print_Bill_Services printBillServices=new Print_Bill_ServicesImpl();
+
+
     @FXML
     private DatePicker DatePiker;
 
@@ -79,8 +90,9 @@ public class SalseAndBeling_Controler implements Initializable {
     @FXML
     private TableColumn<?, ?> columQuantity;
 
+
     @FXML
-    private Label labelBilingNumber;
+    private Label labelBilingNumb;
 
     @FXML
     private Label labelNetTotal;
@@ -103,8 +115,11 @@ public class SalseAndBeling_Controler implements Initializable {
     @FXML
     private JFXTextField textQuantity;
 
+    private LocalDate LocalDate;
+
     @FXML
     void btnAddonAction(ActionEvent event) {
+
 
         Billing_info billing_info;
 
@@ -257,6 +272,39 @@ public class SalseAndBeling_Controler implements Initializable {
     @FXML
     void btnPrintonAction(ActionEvent event) {
 
+        boolean printBill = false;
+
+        try {
+
+        Order order = new Order(
+
+                labelBilingNumb.getText(),
+                LocalDate,
+                Double.parseDouble(labelNetTotal.getText())
+
+
+        );
+
+             printBill = printBillServices.printBill(order, observableListBilng);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (printBill==true){
+
+            labelBilingNumb.setText(salseAndBelingServicers.setBillNo());
+            btnCleronActtion(null);
+
+
+
+        }
+
+
+
+       // System.out.println(salseAndBelingServicers.setBillNo());
+
     }
 
     @FXML
@@ -292,6 +340,9 @@ public class SalseAndBeling_Controler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        LocalDate = LocalDate.now();
+
+      labelBilingNumb.setText(salseAndBelingServicers.setBillNo());
 
         columBarcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
         columName.setCellValueFactory(new PropertyValueFactory<>("name"));
