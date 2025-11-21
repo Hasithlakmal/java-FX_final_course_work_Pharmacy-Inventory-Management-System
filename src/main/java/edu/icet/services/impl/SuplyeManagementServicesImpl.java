@@ -167,5 +167,35 @@ public class SuplyeManagementServicesImpl implements SuplyeManagementServices {
 
     }
 
+    @Override
+    public ObservableList<Suply> getAll(){
+
+        ObservableList<Suply>suplies =FXCollections.observableArrayList();
+
+        try {
+            ResultSet resultSet = suplyeManagementRepositrory.getallItam();
+
+            while (resultSet.next()){
+
+                suplies.add(new Suply(
+
+                        resultSet.getString("supplier"),
+                        resultSet.getString("Tel_No"),
+                        resultSet.getString("barcode")
+
+                ));
+
+
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return suplies;
+
+    }
+
 
 }
