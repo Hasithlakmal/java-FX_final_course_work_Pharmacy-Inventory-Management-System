@@ -1,6 +1,8 @@
 package edu.icet.controller;
 
 import com.jfoenix.controls.JFXButton;
+import edu.icet.services.SealesReportServices;
+import edu.icet.services.impl.SealesReportServicesImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,9 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SealesReportControler implements Initializable {
+
+
+    private SealesReportServices sealesReportServices=new SealesReportServicesImpl();
 
     @FXML
     private JFXButton btnPrint;
@@ -154,7 +159,7 @@ public class SealesReportControler implements Initializable {
     @FXML
     void btnPrintonAction(ActionEvent event) {
 
-        System.out.println("hasith lakmal");
+       sealesReportServices.getAllInfo();
 
     }
 

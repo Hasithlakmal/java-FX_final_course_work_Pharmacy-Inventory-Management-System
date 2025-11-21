@@ -31,7 +31,10 @@ public class OrderDetailsRepositoryImpl implements OrderDetailsRepository {
 
     @Override
     public ResultSet getallItam() throws SQLException {
-        return null;
+
+        PreparedStatement preparedStatement = getconnection().prepareStatement("select * from order_details");
+        return preparedStatement.executeQuery();
+
     }
 
     private Connection getconnection() throws SQLException {
