@@ -16,4 +16,5 @@ public interface SuplyeManagementServices {
 
     public ObservableList<Join_suplyerAndAdditem> getUnRegisterSuplers();
 
+    public ObservableList<Suply> getAll();
 }
