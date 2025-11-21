@@ -2,14 +2,25 @@ package edu.icet.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DashBoadControler implements Initializable {
+
+    private Stage stage1 =new Stage();
+    private Stage stage2 =new Stage();
+    private Stage stage3 =new Stage();
+    private Stage stage4 =new Stage();
+    private Stage stage5 =new Stage();
+    private Stage stage6 =new Stage();
 
     @FXML
     private LineChart<?, ?> MonthliyIncomChart;
@@ -49,20 +60,72 @@ public class DashBoadControler implements Initializable {
     }
 
     public void btn_addon_action(ActionEvent actionEvent) {
+
+        try {
+            stage1.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/Add_medicines.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        stage1.show();
+
     }
 
     public void btnSupler_onAction(ActionEvent actionEvent) {
+
+        try {
+            stage2.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/SuplyeManagement.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        stage2.show();
     }
 
     public void btn_salse_onAction(ActionEvent actionEvent) {
+
+        try {
+            stage3.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/SalseAndBeling.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        stage3.show();
+
     }
 
     public void btn_Expier_On_action(ActionEvent actionEvent) {
+        try {
+            stage4.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/ExpierAndLowStock.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        stage4.show();
+
     }
 
     public void btn_Stok_OnActiopn(ActionEvent actionEvent) {
+
+        try {
+            stage5.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/StorckSummary.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        stage5.show();
+
     }
 
     public void btn_salseReport_onAction(ActionEvent actionEvent) {
+
+        try {
+            stage6.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/Sales_Report.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        stage6.show();
+
     }
 }
