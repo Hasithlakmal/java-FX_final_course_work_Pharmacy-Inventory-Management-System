@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SealesReportControler implements Initializable {
@@ -57,6 +58,9 @@ public class SealesReportControler implements Initializable {
 
     @FXML
     private TableColumn<?, ?> columSupplier;
+
+    @FXML
+    private Label lableDate;
 
     @FXML
     private Label labelBilingNumber;
@@ -107,6 +111,8 @@ public class SealesReportControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        lableDate.setText(String.valueOf(LocalDate.now()));
 
 
         String phrase ="date";
