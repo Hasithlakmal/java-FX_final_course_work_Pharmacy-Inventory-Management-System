@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 public class Start extends Application {
 
+    Stage stage1 =new Stage();
+    Stage stage2 =new Stage();
+    Stage stage3 =new Stage();
 
     public static  void main(String [] args){
 
@@ -19,9 +22,13 @@ public class Start extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/SalseAndBeling.fxml"))));
+        stage1.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/SalseAndBeling.fxml"))));
+        stage2.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/Add_medicines.fxml"))));
+        stage3.setScene(new Scene(FXMLLoader.load(getClass().getResource("/viwe/Sales_Report.fxml"))));
 
-        stage.show();
+       stage1.show();
+        stage2.show();
+        stage3.show();
 
     }
 }
