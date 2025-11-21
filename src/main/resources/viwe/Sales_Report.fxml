@@ -89,6 +89,36 @@
                   </JFXButton>
                </children>
             </AnchorPane>
+            <Label layoutX="705.0" layoutY="314.0" text="Total   Sales  : ">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="lablTotalSale" layoutX="873.0" layoutY="314.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="705.0" layoutY="361.0" prefHeight="36.0" prefWidth="158.0" text="Total   Cost   : ">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalCost" layoutX="873.0" layoutY="361.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="708.0" layoutY="412.0" prefHeight="36.0" prefWidth="158.0" text="Total  Profit  : ">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalProfit" layoutX="874.0" layoutY="412.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
       <Label layoutX="1046.0" layoutY="76.0" prefHeight="39.0" prefWidth="108.0" text="Date  :">
