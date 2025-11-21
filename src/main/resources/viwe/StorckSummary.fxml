@@ -62,15 +62,15 @@
         </JFXButton>
         <AnchorPane layoutX="284.0" layoutY="190.0" prefHeight="446.0" prefWidth="1048.0">
             <children>
-                <TableView id="tb" fx:id="tableAddMedi" layoutX="3.0" layoutY="20.0" prefHeight="335.0" prefWidth="1046.0" stylesheets="@Css/Add_medicines.css">
+                <TableView id="tb" fx:id="Table" layoutX="3.0" layoutY="20.0" prefHeight="335.0" prefWidth="1046.0" stylesheets="@Css/Add_medicines.css">
                     <columns>
                         <TableColumn fx:id="columBarcode" prefWidth="140.0" text="Barcode" />
                         <TableColumn fx:id="columName" prefWidth="152.0" text="Name" />
                         <TableColumn fx:id="columBrand" minWidth="0.0" prefWidth="124.800048828125" text="Brand" />
                         <TableColumn fx:id="columSupplier" prefWidth="144.0" text="Supplier" />
                         <TableColumn fx:id="columQuantity" prefWidth="99.20001220703125" text="Quantity" />
-                        <TableColumn fx:id="columExpiryDate" prefWidth="115.99993896484375" text="Expiry Date" />
-                  <TableColumn fx:id="columExpiryDate" prefWidth="112.7999267578125" text="Low-Stock" />
+                        <TableColumn fx:id="columExpiryDate" prefWidth="115.99993896484375" text="Expiry  Status" />
+                  <TableColumn fx:id="columLowStock" prefWidth="112.7999267578125" text="Low-Stock" />
                   <TableColumn fx:id="columTelNo" prefWidth="169.5999755859375" text="Tle  - No" />
                     </columns>
                 </TableView>
