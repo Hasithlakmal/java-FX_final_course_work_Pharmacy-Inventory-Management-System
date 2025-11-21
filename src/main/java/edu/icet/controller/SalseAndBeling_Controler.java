@@ -139,7 +139,7 @@ public class SalseAndBeling_Controler implements Initializable {
                 if (details.getBarcode().equals(textBarcode.getText())) {
 
 
-                    AOneItemOfPrice = details.getPrice();
+                    AOneItemOfPrice = details.getSealing();
                 }
 
             }
@@ -393,7 +393,7 @@ public class SalseAndBeling_Controler implements Initializable {
             if (details.getBarcode().equals(textBarcode.getText())) {
 
 
-                AOneItemOfPrice = details.getPrice();
+                AOneItemOfPrice = details.getSealing();
             }
 
         }
@@ -436,7 +436,7 @@ public class SalseAndBeling_Controler implements Initializable {
                 textName.setText(Item.getName());
                 textBrand.setText(Item.getBrand());
 
-                textPrice.setText(String.valueOf(Item.getPrice()));
+                textPrice.setText(String.valueOf(Item.getSealing()));
                 DatePiker.setValue(Item.getDate());
 
 
@@ -460,7 +460,7 @@ public class SalseAndBeling_Controler implements Initializable {
                         if (details.getBarcode().equals(textBarcode.getText())) {
 
 
-                            AOneItemOfPrice = details.getPrice();
+                            AOneItemOfPrice = details.getSealing();
                         }
 
                     }
