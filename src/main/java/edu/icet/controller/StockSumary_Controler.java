@@ -1,13 +1,26 @@
 package edu.icet.controller;
 
 import com.jfoenix.controls.JFXButton;
+import edu.icet.model.dto.LowAndExpier;
+import edu.icet.services.ExpierAndLOwStockServices;
+import edu.icet.services.impl.ExpierAndLOwStockServicesImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class StockSumary_Controler {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StockSumary_Controler implements Initializable {
+
+    private ExpierAndLOwStockServices expierAndLOwStockServices=new ExpierAndLOwStockServicesImpl();
+
+    @FXML
+    private TableView<LowAndExpier> Table;
 
     @FXML
     private JFXButton btnPrint;
@@ -43,6 +56,9 @@ public class StockSumary_Controler {
     private TableColumn<?, ?> columExpiryDate;
 
     @FXML
+    private TableColumn<?, ?> columLowStock;
+
+    @FXML
     private TableColumn<?, ?> columName;
 
     @FXML
@@ -61,15 +77,15 @@ public class StockSumary_Controler {
     private Label labelNetTotal;
 
     @FXML
-    private TableView<?> tableAddMedi;
-
-    @FXML
     void btnPrintonAction(ActionEvent event) {
 
     }
 
     @FXML
     void btnRefreshonAction(ActionEvent event) {
+
+        loadItamTabale();
+
 
     }
 
@@ -100,6 +116,29 @@ public class StockSumary_Controler {
 
     @FXML
     void btn_salse_onAction(ActionEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        columBarcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+        columName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        columSupplier.setCellValueFactory(new PropertyValueFactory<>("spmlyer"));
+        columQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        columExpiryDate.setCellValueFactory(new PropertyValueFactory<>("ExpiyerStatus"));
+        columLowStock.setCellValueFactory(new PropertyValueFactory<>("Low_Stock"));
+        columTelNo.setCellValueFactory(new PropertyValueFactory<>("tel_no"));
+
+        loadItamTabale();
+
+    }
+
+    public void loadItamTabale() {
+
+        Table.setItems(expierAndLOwStockServices.TableLoadDetails());
 
     }
 
