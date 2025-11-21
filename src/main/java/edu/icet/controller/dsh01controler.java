@@ -1,7 +1,6 @@
 package edu.icet.controller;
 
 import com.jfoenix.controls.JFXButton;
-import edu.icet.model.dto.ok;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,12 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import edu.icet.model.dto.ok;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class dsh01controler implements Initializable {
-    ObservableList<ok> observableList = FXCollections.observableArrayList();
+     ObservableList<ok> observableList = FXCollections.observableArrayList();
 
     @FXML
     private JFXButton btnSupler;

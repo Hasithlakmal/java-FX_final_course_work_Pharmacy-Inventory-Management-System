@@ -8,7 +8,9 @@ import edu.icet.repository.impl.OrderDetailsRepositoryImpl;
 import edu.icet.services.OrderDetailServices;
 import javafx.collections.ObservableList;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class OrderDetailServicesImpl implements OrderDetailServices {
 
@@ -31,7 +33,7 @@ public class OrderDetailServicesImpl implements OrderDetailServices {
                         order.getBill_No(),
                         billingInfo.getName(),
                         billingInfo.getBrand(),
-                        billingInfo.getDate(),
+                        LocalDate.now(),
                         billingInfo.getQuantity(),
                         billingInfo.getPrice())
 
@@ -53,4 +55,18 @@ public class OrderDetailServicesImpl implements OrderDetailServices {
 
         return isAddDetails;
     }
+
+    @Override
+    public ResultSet getallItam() {
+
+
+        try {
+            return   orderDetailsRepository.getallItam();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 }

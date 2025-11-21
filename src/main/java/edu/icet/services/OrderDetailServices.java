@@ -4,7 +4,12 @@ import edu.icet.model.dto.Billing_info;
 import edu.icet.model.dto.Order;
 import javafx.collections.ObservableList;
 
+import java.sql.ResultSet;
+
 public interface OrderDetailServices {
 
     public boolean additem(Order order , ObservableList<Billing_info> billingInfos);
+
+    public ResultSet getallItam();
+
 }
